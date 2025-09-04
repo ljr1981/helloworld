@@ -1,3 +1,4 @@
+#define UNICODE
 #include <windows.h>
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
@@ -11,19 +12,18 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-    const char CLASS_NAME[]  = "HelloWorldWindowClass";
+    const wchar_t CLASS_NAME[]  = L"HelloWorldWindowClass";
 
-    WNDCLASS wc = {};
+    WNDCLASSW wc = {};
     wc.lpfnWndProc   = WindowProc;
     wc.hInstance     = hInstance;
     wc.lpszClassName = CLASS_NAME;
+    RegisterClassW(&wc);
 
-    RegisterClass(&wc);
-
-    HWND hwnd = CreateWindowEx(
+    HWND hwnd = CreateWindowExW(
         0,
         CLASS_NAME,
-        "Hello World",
+        L"Hello World",
         WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, CW_USEDEFAULT, 800, 600,
         NULL,
